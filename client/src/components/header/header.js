@@ -40,14 +40,13 @@ export const Header = () => {
             </div>
 
             <div className={`fullscreen-menu ${isActive ? 'active' : ''}`}>
-                <button className="close-btn" onClick={toggleMenu}>X</button>
                 <nav>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Activités</a></li>
-                        <li><a href="#">Workflow</a></li>
-                        <li><a href="#">A propos</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Activités</a></li>
+                        <li><a href="">Workflow</a></li>
+                        <li><a href="">A propos</a></li>
+                        <li><a href="">Contact</a></li>
                     </ul>
                 </nav>
             </div>
