@@ -15,16 +15,18 @@ export const Header = () => {
     return(
         <header className='header'>
 
-            <div className='menu'>
-
-                <div className="logo">
-                    <img src={logo} alt="" className='img'/>
+            
+                <div className='menu'>
+                    <a href="" className="link-home">
+                        <div className="logo">
+                            <img src={logo} alt="" className='img'/>
+                        </div>
+                        
+                        <h1 className='titleHeader'>BLACKPEARL <br></br>
+                        FACTORY</h1>
+                    </a>
                 </div>
-                
-                <h1 className='titleHeader'>BLACKPEARL <br></br>
-                    FACTORY</h1>
-
-            </div>
+            
 
             <div className='search'>
                 <button className={`menu-btn ${isActive ? 'active': ''}`} onClick={toggleMenu}>
