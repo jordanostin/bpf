@@ -7,6 +7,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    justify-content: space-between;
 
     .menu{
 
@@ -39,6 +40,119 @@
         }
 
     }
-    
 
+    .search{
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        width: 200px;
+        justify-content: end;
+
+        .menu-btn{
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            background: transparent;
+            transition: background-color 0.3s;
+
+            &:hover{
+                background-color: #fff;
+            }
+
+            .line-wrapper {
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .line {
+                    position: absolute;
+                    width: 24px;
+                    height: 2px;
+                    transition: all 0.3s;
+                    background-color: #555;
+                }
+        
+                .line-1 {
+                    top: 25%;
+                }
+        
+                .line-2 {
+                    top: 75%;
+                }
+        
+                &.active .line-1 {
+                    top: 50%;
+                    transform: translateY(-50%) rotate(45deg);
+                }
+        
+                &.active .line-2 {
+                    top: 50%;
+                    transform: translateY(-50%) rotate(-45deg);
+                }
+            }
+        }
+    }
+
+    .fullscreen-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+
+        &.active {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            border: none;
+            background: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        nav {
+            ul {
+                list-style: none;
+                padding: 0;
+                text-align: center;
+
+                li {
+                    margin: 20px 0;
+                }
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 }
