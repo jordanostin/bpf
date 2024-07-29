@@ -1,11 +1,11 @@
 import {useDispatch} from 'react-redux'
 import {addUser} from '../../store/slices/user/userSlice'
-import {useNavigate} from 'react-router-dom'
+//import {useNavigate} from 'react-router-dom'
 
-export const login = () =>{
+export const Login = () =>{
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const handleSubmit = (e) =>{
 
@@ -13,7 +13,7 @@ export const login = () =>{
 
         const user = new FormData(e.target);
 
-        fetch(`${pocess.env.REACT_APP_API_URL}/auth/login`,{
+        fetch(`${process.env.REACT_APP_API_URL}/auth/login`,{
 
             method: 'POST',
 

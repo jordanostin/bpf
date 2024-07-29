@@ -21,6 +21,6 @@ export const articleSlice = createSlice({
     },
 })
 
-export const {addArticle} = articleSliceSlice.actions
+export const {addArticle} = articleSlice.actions
 
-export default addArticleSlice.reducer
+export default addArticle.reducer

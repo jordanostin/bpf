@@ -1,17 +1,20 @@
 import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
 import {addUser} from '../../store/slices/user/userSlice';
+//import {useNavigate} from 'react-router-dom';
 
 export const Register =()=>{
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
-    const handleSubmite = (e) =>{
+    const handleSubmit = (e) =>{
 
         e.preventDefault();
 
         const newUser = new FormData(e.target);
+
+        console.log("API URL:", `${process.env.REACT_APP_API_URL}/auth/register`);
+
 
         fetch(`${process.env.REACT_APP_API_URL}/auth/register`,{
             method: 'POST',
