@@ -1,19 +1,18 @@
 import {useEffect, useState} from 'react';
 
 
-export const Article = () => {
+export const Articles = () => {
 
     const [artticles ,setArticles] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    /*const fetchArticles = async () =>{
-
-        try{
-            const response = await fetch()
-        }
-
-    }*/
+    fetch(`${process.env.REACT_APP_API_URL}/articles`)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((err) => console.log(err))
 
     return (
         <>
