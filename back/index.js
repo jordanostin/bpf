@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import cors from 'cors';
 import authRouter from './routes/authRouter.js';
 import adminRouter from './routes/adminRouter.js';
+import frontRouter from './routes/frontRouter.js';
 import {auth} from './middleware/auth.js'
 dotenv.config();
 
@@ -27,6 +28,7 @@ mongoose.connection.on("open", () => {
     console.log("Connexion à la base de donénes établie");
     app.use('/admin', [auth.verifyToken, auth.isAdmin], adminRouter );
     app.use('/auth', authRouter);
+    app.use('/', frontRouter);
 })
 
 

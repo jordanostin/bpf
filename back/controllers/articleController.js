@@ -2,6 +2,7 @@ import Article from '../models/articleSchema.js';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
+import articleSchema from '../models/articleSchema.js';
 
 const copyFiles = async (files, destFolder) => {
     const filePaths = [];
@@ -76,3 +77,32 @@ export const createArticle = (req, res) => {
     });
     
 };
+
+export const showArticle = async(req, res) => {
+
+    const articleId = req.params.articleId
+
+    try{
+        const article = await articleSchema.findById(articleId);
+
+        if (!article){
+            return res.status(400).json({message: 'article introuvable'})
+        }
+
+        return res.status(200).json({article})
+    }
+    catch(err){
+        return res.status(500).json({message : 'une erreur est survenue', error: err.message})
+    }
+}
+
+export const getAllArticles = async (req, res) => {
+    
+    try{
+        const articles = await Article.find().sort({createdAt: -1});
+        return res.status(200).json({articles})
+    }
+    catch(err){
+        return res.status(500).json({message : 'une erreur est survenue', error: err.message})
+    }
+}
