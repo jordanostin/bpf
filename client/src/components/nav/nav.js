@@ -3,7 +3,27 @@ import './nav.scss';
 
 export const Nav = () => {
 
+    const [articles, setArticles] = useState([]);
     const [activeSection, setActiveSection] = useState(0);
+
+
+    useEffect(() => {
+
+        fetch(`${process.env.REACT_APP_API_URL}/articles`)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
+
+            if(Array.isArray(data.articles)) {
+                setArticles(data.articles);
+            }else{
+                console.error('donnee recu pas bon', data);
+                setArticles([]);
+            }
+            
+        })
+        .catch(err => console.log('erreur recup article', err))
+    },[])
 
     const handleScroll = () => {
 
@@ -14,7 +34,7 @@ export const Nav = () => {
             const rect = section.getBoundingClientRect();
 
             if(rect.top >= 0 && rect.top <window.innerHeight / 2){
-                currentIndex = i;
+               currentIndex = i;
             }
         });
 
@@ -30,13 +50,21 @@ export const Nav = () => {
     },[])
 
     return(
-        <nav>
-            <ul>
-                <li className={activeSection === 0 ? 'active' : ''}><a href='#'>Modélisations 3D</a></li>
-                <li className={activeSection === 1 ? 'active' : ''}><a href='#'>Réalités virtuelles</a></li>
-                <li className={activeSection === 2 ? 'active' : ''}><a href='#'>Applications vidéoludiques</a></li>
-            </ul>
-            <div className='scroll-indicator' style={{top: `${activeSection * 40}px`}}></div>
-        </nav>
+        <>
+            <nav>
+                <ul>
+                    {Array.isArray(articles) ? (
+                        articles.map((article, i) => (
+                            <li key={article._id} className={activeSection === i ? 'active' : ''}>
+                                <a href={`#article-${article._id}`}>{article.title}</a>
+                            </li>
+                        ))
+                    ) : (
+                        <li>Aucun article trouvé</li>
+                    )}
+                </ul>
+                <div className='scroll-indicator' style={{top: `${activeSection * 40}px`}}></div>
+            </nav>
+        </>
     );
 }

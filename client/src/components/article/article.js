@@ -6,7 +6,9 @@ export const Articles = () => {
     const [articles ,setArticles] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/articles`)
+        fetch(`${process.env.REACT_APP_API_URL}/articles`, {
+            method: 'GET'
+        })
         .then((res) => res.json())
         .then((data) => {
             console.log(data.articles);
@@ -19,7 +21,7 @@ export const Articles = () => {
     return (
         <>
             {articles.map((article) => (
-                <div key={article._id} className='article'>
+                <div id={`article-${article._id}`} key={article._id} className='article'>
                     <h2>{article.title}</h2>
                     <p>{article.description}</p>
                 </div>
