@@ -1,5 +1,8 @@
 nav {
-    position: relative;
+    position: fixed;
+    top: 50%;
+    width: 100px;
+    
 
     ul {
         list-style: none;
@@ -17,10 +20,6 @@ nav {
                 padding-left: 20px;
                 position: relative;
                 display: block;
-            }
-
-            &.active a {
-                color: #00f;
             }
         }
     }

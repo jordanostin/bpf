@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import './article.scss'
 
 
 export const Articles = () => {
