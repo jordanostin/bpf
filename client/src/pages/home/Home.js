@@ -1,6 +1,7 @@
 import './home.scss'
 import {Header} from '../../components/header/header'
 import { Articles } from '../../components/article/article';
+import {Nav} from '../../components/nav/nav'
 
 export const Home = () => {
 
@@ -14,8 +15,14 @@ export const Home = () => {
 
                 <p>Chez Blackpearl Factory, nous sommes guidés par la conviction que chaque élan créatif mérite de prendre forme.</p>
             </div>
-            <Articles/>
-
+            <div className='navigation-articles'>
+                <div className='navHome'>
+                    <Nav/>
+                </div>
+                <div className='articleHome'>
+                    <Articles/>
+                </div>
+            </div >
         </>
     );
 }
