@@ -106,3 +106,79 @@ export const getAllArticles = async (req, res) => {
         return res.status(500).json({message : 'une erreur est survenue', error: err.message})
     }
 }
+
+export const updateArticle = async(req, res) => {
+
+    const userId = req.userId;
+
+    const form = formidable({multiples: true});
+
+    form.parse(req, async(err, fields, files) =>{
+
+        const articleId = req.params.id;
+
+        const {title} = fields;
+
+        if(!title){
+            return res.status(400).json({message : 'Les champs sont vide'})
+        }
+
+        if(!files.image || title){
+            const article = {
+                user: userId,
+                title,
+                updateAt : Date.now()
+            };
+            
+            articleSchema.updateOne({_id: articleId}, article)
+            .then(() => {
+                return res.status(200).json({article});
+            })
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json({message : 'Erreur de la mise à jour 1'})
+            })
+        }else{
+            copyFiles([files.image], 'image')
+                .then(([imageNewPath]) => {
+                    articleSchema.findById(articleId).exec()
+                    .then((data) => {
+                        if(!data) {
+                            return res.status(404).json({message: 'Article non trouvé'});
+                        }else{
+                            const oldImagePath = data.image;
+                            fs.unlink(`public/${oldImagePath}`, (err) => {
+                                if (err) {
+                                    console.error(err);
+                                    return res.status(500).json({message : 'Erreur de la suppression de l\'ancienne image'});
+                                }else{
+                                    const article = {
+                                        user: userId,
+                                        title,
+                                        image: imageNewPath,
+                                        updateAt: data.updatedAt
+                                    };
+                                    articleSchema.updateOne({_id: articleId}, article)
+                                        .then(() => {
+                                            return res.status(200).json({article});
+                                        })
+                                        .catch((err) => {
+                                            console.error(err);
+                                            return res.status(500).json({message: 'Erreur de la mise à jour 2'});
+                                        });
+                                }
+                            });
+                        }
+                     })
+                     .catch((err) => {
+                        console.error(err);
+                        return res.status(500).json({message: 'Erreur de la mise à jour 3'});
+                     });
+                })
+                .catch((err) => {
+                    console.error(err);
+                    return res.status(500).json({message: 'Erreur de la mise à jour 4'});
+                });
+        }
+    });
+}
