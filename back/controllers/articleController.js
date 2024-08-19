@@ -117,18 +117,40 @@ export const updateArticle = async(req, res) => {
 
         const articleId = req.params.id;
 
-        const {title} = fields;
+        let {title, description} = fields;
 
-        if(!title){
-            return res.status(400).json({message : 'Les champs sont vide'})
+        if (Array.isArray(title)){
+            title = title[0];
         }
 
-        if(!files.image || title){
-            const article = {
+        if(Array.isArray(description)){
+            description = description[0];
+        }
+
+        if (!title && !description && !files.image) {
+            return res.status(400).json({ message: 'Aucun champ à mettre à jour' });
+        }
+
+        const article = {
+            user: userId,
+            updateAt: Date.now()
+        }
+
+        if(title){
+            article.title = title;
+        }
+
+        if(description){
+            article.description = description;
+        }
+
+        if(!files.image /*|| !title || !description*/){
+            /*const article = {
                 user: userId,
                 title,
+                description,
                 updateAt : Date.now()
-            };
+            };*/
             
             articleSchema.updateOne({_id: articleId}, article)
             .then(() => {
@@ -155,6 +177,7 @@ export const updateArticle = async(req, res) => {
                                     const article = {
                                         user: userId,
                                         title,
+                                        description,
                                         image: imageNewPath,
                                         updateAt: data.updatedAt
                                     };
