@@ -144,13 +144,7 @@ export const updateArticle = async(req, res) => {
             article.description = description;
         }
 
-        if(!files.image /*|| !title || !description*/){
-            /*const article = {
-                user: userId,
-                title,
-                description,
-                updateAt : Date.now()
-            };*/
+        if(!files.image){
             
             articleSchema.updateOne({_id: articleId}, article)
             .then(() => {
